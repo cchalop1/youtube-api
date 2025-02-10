@@ -1,0 +1,128 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "YouTube Summary API",
+    "description": "An API to get the title, description, and subtitles of a YouTube video.",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://youtube-api-production-d466.up.railway.app"
+    }
+  ],
+  "paths": {
+    "/info": {
+      "get": {
+        "summary": "Get video information",
+        "operationId": "getVideoInfo",
+        "tags": ["video"],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "The URL of the YouTube video",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Video information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subtitles": {
+      "get": {
+        "summary": "Get video subtitles",
+        "operationId": "getVideoSubtitles",
+        "tags": ["video"],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "The URL of the YouTube video",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Video subtitles",
+            "content": {
+              "text/vtt": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

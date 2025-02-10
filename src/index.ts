@@ -6,7 +6,7 @@ import { file } from "bun";
 const execAsync = promisify(exec);
 
 const app = new Elysia()
-  .get("/", () => "Hello Elysia")
+  .get("/", () => file("public/openai.json"))
   .get("/info/", async ({ query: { url } }) => {
     console.log(url);
     if (!url) {
