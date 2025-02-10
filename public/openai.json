@@ -87,7 +87,7 @@
           "200": {
             "description": "Video subtitles",
             "content": {
-              "text/vtt": {
+              "text/plain": {
                 "schema": {
                   "type": "string"
                 }

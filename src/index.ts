@@ -2,6 +2,7 @@ import { Elysia } from "elysia";
 import { exec } from "child_process";
 import { promisify } from "util";
 import { file } from "bun";
+import { cleanVTT } from "./utils";
 
 const execAsync = promisify(exec);
 
@@ -32,10 +33,11 @@ const app = new Elysia()
       const { stdout } = await execAsync(
         `yt-dlp --write-auto-subs  --sub-format vtt -o subtitle --skip-download ${url}`
       );
+      await cleanVTT("subtitle.en.vtt", "subtitle.en.clean.vtt");
 
       console.log(stdout);
 
-      return file("subtitle.en.vtt");
+      return file("subtitle.en.clean.vtt");
     } catch (error: any) {
       return { error: error.message };
     }
