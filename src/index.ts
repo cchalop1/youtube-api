@@ -8,6 +8,7 @@ const execAsync = promisify(exec);
 
 const app = new Elysia()
   .get("/", () => file("public/openai.json"))
+  .get("/privacy", () => file("public/privacy.html"))
   .get("/info/", async ({ query: { url } }) => {
     console.log(url);
     if (!url) {
@@ -34,8 +35,6 @@ const app = new Elysia()
         `yt-dlp --write-auto-subs  --sub-format vtt -o subtitle --skip-download ${url}`
       );
       await cleanVTT("subtitle.en.vtt", "subtitle.en.clean.vtt");
-
-      console.log(stdout);
 
       return file("subtitle.en.clean.vtt");
     } catch (error: any) {
